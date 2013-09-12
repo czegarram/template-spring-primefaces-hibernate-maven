@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+<h:head>
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/tema.css"/>
+	<link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/estiloMant.css"/> 
+</h:head>
+
+<h:body>
+	<h:form id="form">
+	
+	
+		<p:growl id="growl" showDetail="true" life="3000" /> 
+	
+		<p:dialog id="dialog" header="Editar" widgetVar="dialog"
+			resizable="false" width="400" height="200" showEffect="clip"
+			hideEffect="fold" modal="true">
+			
+			<h:panelGrid id="display" columns="2" cellpadding="4">
+				<h:outputText value="Id:" rendered="#{UserBean.accionEditar}"/>
+				<h:outputText value="#{UserBean.user.id}" rendered="#{UserBean.accionEditar}"/>
+
+				<h:outputText value="Nombre de usuario:" />
+				<p:inputText value="#{UserBean.user.surname}" />
+
+				<h:outputText value="Nombre:" />
+				<p:inputText value="#{UserBean.user.name}" />
+
+				
+				<p:commandButton value="#{UserBean.etiBotonDialog()}"
+					actionListener="#{UserBean.procesarDialog}"
+					update=":form:datatablecampana, growl"  oncomplete="dialog.hide();"/>
+
+			</h:panelGrid>
+		</p:dialog>		
+		
+		<p:panel>
+			
+			 <f:facet name="header" >
+
+			 	<p:commandButton styleClass="back" value="Regresar" icon="ui-icon-circle-arrow-w" action="menuPrincipal" ajax="false"/>
+			 	<p id="par">Mantenimiento de Nombre</p>
+			 	
+                <div id="reloj">
+					<p:clock pattern="HH:mm:ss - dd / MM / yyyy" />
+				</div>
+            </f:facet>
+			
+			
+			
+			
+			<div id="cuerpo">
+
+				<p:dataTable id="datatablecampana" var="c" widgetVar="dt"
+					value="#{UserBean.users}" rowKey="#{c.id}"
+					selection="#{UserBean.userNuevo}" selectionMode="single"
+					styleClass="datatable_style_general" paginator="true" rows="10"  
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+		                 rowsPerPageTemplate="2,5,10" >
+		
+					<f:facet name="header">
+		
+						<p:commandButton id="viewNuevo" styleClass="botonPeque" value="Nuevo" icon="ui-icon-document"
+							update=":form:display" oncomplete="dialog.show()"
+							actionListener="#{UserBean.nuevoEvent}" />		
+		
+						<p:commandButton id="viewEditar" styleClass="botonPeque" value="Editar"
+							icon="ui-icon-search" update=":form:display, :form:growl"
+							actionListener="#{UserBean.editarEvent}" />
+							
+						<p:commandButton id="EliminarRegistro" styleClass="botonPeque" value="Eliminar"
+							icon="ui-icon-closethick" update=":form:display, :form:growl"
+							actionListener="#{UserBean.eliminarEvent}" />
+		
+					</f:facet>
+					
+					<p:column styleClass="columna" headerText="ID" filterBy="#{c.id}"
+						footerText="nombre">
+						<h:outputText value="#{c.id}" />
+					</p:column>		
+					
+					<p:column styleClass="columna" headerText="Nombre de Usuario" filterBy="#{c.surname}"
+						footerText="nombre">
+						<h:outputText value="#{c.surname}" />
+					</p:column>
+		
+					<p:column styleClass="columna" headerText="Nombre" filterBy="#{c.name}"
+						footerText="nombre">
+						<h:outputText value="#{c.name}" />
+					</p:column>					
+								
+					
+
+					<f:facet name="footer">
+					</f:facet>
+				</p:dataTable>
+			</div>
+
+		</p:panel>
+
+		<p:dialog id="modalDialog" header="CONFIRMACION" widgetVar="dlg2" modal="true" height="150" width="400" closable="false" resizable="false">  
+	    	<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="false" /> 
+			<p:commandButton value="OK" onclick="dlg2.hide()"/> 
+		</p:dialog> 
+		
+		<p:confirmDialog id="confirmDialog" message="¿Esta seguro de esta accion?"  
+                header="Eliminar Registro" severity="alert" widgetVar="confirmation">  
+                  
+        <p:commandButton id="confirm" value="Si" update=":form:datatablecampana, growl" oncomplete="confirmation.hide()"  
+                    actionListener="#{UserBean.validarEliminar}" />  
+        <p:commandButton id="decline" value="No" onclick="confirmation.hide()" type="button" />   
+                  
+    	</p:confirmDialog>  
+
+	</h:form>
+	
+
+</h:body>
+
+
+</html>
