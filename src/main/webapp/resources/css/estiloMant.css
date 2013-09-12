@@ -1,0 +1,71 @@
+@CHARSET "ISO-8859-1";
+
+#form{
+	margin:auto;
+	padding: 5px;
+	width:1000px;
+}
+
+.botonPeque, .ui-widget-content .botonPeque{
+	font-size:14px;
+	margin:10px;
+	font-family:candara;
+}
+
+.ui-widget-header .back {
+	font-size:14px;
+	margin:10px;
+	margin-left:15px;
+	font-family:candara;
+	border: 1px solid #4d494a;
+	background: #663037;
+	color: #ffffff;
+}
+
+.ui-panel .ui-panel-titlebar {
+    padding: 0;
+}
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+	border: 1px solid #0e0e0e;
+	background: #c5c592 url(images/ui-bg_diagonals-small_75_c5c592_40x40.png) 50% 50% repeat;
+	font-weight: bold;
+	color: #663037;
+}
+
+f:facet div{
+	display:block;
+	background-color:red;
+}
+#reloj{
+	margin-top:20px;
+	margin-right:20px;
+	float:right;
+	
+}
+
+.columna{
+	font-family:candara;
+	font-size:16px;
+	
+}
+
+#par{
+	display:inline-block;
+	margin-left:220px;
+	font-family:candara;
+}
+
+
+#cuerpo{
+	display:block;
+}
+
+.ui-icon-disk {
+	background-image: url("#{resource['images:icono.png']"}) !important;
+}
