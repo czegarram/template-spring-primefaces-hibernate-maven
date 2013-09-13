@@ -6,7 +6,9 @@ It's a template for java web projects with theses technologies.
 ##GETTING STARTED
 
 1) Execute sql script on Mysql : [Mysql Script](src/main/resources/template.sql)
+
 2) Generate war from maven project (STS, IntelliJ, etc)
+
 3) Have fun
 
 ##JDK VERSION
